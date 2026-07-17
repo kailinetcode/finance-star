@@ -41,7 +41,7 @@ export default function FinanceView({ signName, onReset }) {
         <p className="reading-date">{formatDate(today)}</p>
         {sign.image
           ? <img
-              src={sign.image}
+              src={`${import.meta.env.BASE_URL}signs/${sign.name.toLowerCase()}.png`}
               alt={sign.name}
               className="sign-hero-img"
               style={{ objectPosition: sign.imgPos }}

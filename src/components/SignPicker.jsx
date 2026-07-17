@@ -11,7 +11,7 @@ export default function SignPicker({ onSelect }) {
     <div className="sign-picker">
       <p className="picker-subtitle">select your sun sign</p>
       <div className="wheel-container" style={{ width: SIZE, height: SIZE }}>
-        <div className="wheel-ring" />
+        <div className="wheel-ring" style={{ background: `linear-gradient(rgba(255,255,255,0.7), rgba(255,255,255,0.7)), url('${import.meta.env.BASE_URL}star-map.png') center / cover` }} />
 
         {SIGNS.map((sign, i) => {
           const angle = (i * 30 - 90) * (Math.PI / 180);
@@ -29,7 +29,7 @@ export default function SignPicker({ onSelect }) {
                 <div className="wheel-img-wrap">
                   {sign.image
                     ? <img
-                        src={sign.image}
+                        src={`${import.meta.env.BASE_URL}signs/${sign.name.toLowerCase()}.png`}
                         alt={sign.name}
                         className="wheel-img"
                         style={{ objectPosition: sign.imgPos }}

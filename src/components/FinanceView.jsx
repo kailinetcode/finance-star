@@ -22,7 +22,7 @@ export default function FinanceView({ signName, onReset }) {
       .catch(() => {});
   }, [signName]);
 
-  const { sign, market, daily, house2, house8, house11, spending, saving, investing, debt, income, mindset, goodFor, badFor } = reading;
+  const { sign, market, daily, spending, saving, debt, mindset, goodFor, badFor } = reading;
 
   return (
     <div className="reading-view">
@@ -67,21 +67,8 @@ export default function FinanceView({ signName, onReset }) {
       {/* ── Spending ── */}
       <section className="themed-block">
         <p className="block-eyebrow">Spending</p>
-        <div className="houses-block">
-          <div className="house-row">
-            <p className="row-label">{house2.label.toUpperCase()}</p>
-            <p className="row-text">{house2.text}</p>
-          </div>
-        </div>
         <section className="category-section">
-          <p className="category-symbol">♀</p>
-          <p className="category-label">SPENDING</p>
           <p className="category-text">{spending}</p>
-        </section>
-        <section className="category-section">
-          <p className="category-symbol">☉</p>
-          <p className="category-label">INCOME & EARNING</p>
-          <p className="category-text">{income}</p>
         </section>
       </section>
 
@@ -90,15 +77,7 @@ export default function FinanceView({ signName, onReset }) {
       {/* ── Debt ── */}
       <section className="themed-block">
         <p className="block-eyebrow">Debt</p>
-        <div className="houses-block">
-          <div className="house-row">
-            <p className="row-label">{house8.label.toUpperCase()}</p>
-            <p className="row-text">{house8.text}</p>
-          </div>
-        </div>
         <section className="category-section">
-          <p className="category-symbol">♏</p>
-          <p className="category-label">DEBT & OBLIGATION</p>
           <p className="category-text">{debt}</p>
         </section>
         <DebtTool />
@@ -109,21 +88,8 @@ export default function FinanceView({ signName, onReset }) {
       {/* ── Savings & Investing ── */}
       <section className="themed-block">
         <p className="block-eyebrow">Savings & Investing</p>
-        <div className="houses-block">
-          <div className="house-row">
-            <p className="row-label">{house11.label.toUpperCase()}</p>
-            <p className="row-text">{house11.text}</p>
-          </div>
-        </div>
         <section className="category-section">
-          <p className="category-symbol">♄</p>
-          <p className="category-label">SAVING</p>
           <p className="category-text">{saving}</p>
-        </section>
-        <section className="category-section">
-          <p className="category-symbol">♃</p>
-          <p className="category-label">INVESTING</p>
-          <p className="category-text">{investing}</p>
         </section>
         <SavingsTool />
         <InvestmentTool />

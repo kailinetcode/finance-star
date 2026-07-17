@@ -273,19 +273,4 @@ function fmtMonths(m) {
   return mo === 0 ? `${y} year${y !== 1 ? 's' : ''}` : `${y}y ${mo}mo`;
 }
 
-export default function FinancialTools() {
-  return (
-    <div className="financial-tools">
-      <hr className="divider" />
-      <div className="tools-header">
-        <p className="tools-title">YOUR NUMBERS</p>
-        <p className="tools-subtitle">Enter your figures. The math doesn't lie.</p>
-      </div>
-      <InvestmentTool />
-      <hr className="divider" />
-      <DebtTool />
-      <hr className="divider" />
-      <SavingsTool />
-    </div>
-  );
-}
+export { InvestmentTool, DebtTool, SavingsTool };

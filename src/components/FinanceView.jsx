@@ -1,15 +1,6 @@
 import { useState, useEffect } from 'react';
 import { getFinancialReading } from '../data/financialHouses';
-import FinancialTools from './FinancialTools';
-
-const CATEGORIES = [
-  { key: 'spending', label: 'Spending', symbol: '♀' },
-  { key: 'saving', label: 'Saving', symbol: '♄' },
-  { key: 'investing', label: 'Investing', symbol: '♃' },
-  { key: 'debt', label: 'Debt & Obligation', symbol: '♏' },
-  { key: 'income', label: 'Income & Earning', symbol: '☉' },
-  { key: 'mindset', label: 'Money Mindset', symbol: '♆' },
-];
+import { InvestmentTool, DebtTool, SavingsTool } from './FinancialTools';
 
 function formatDate(date) {
   return date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }).toUpperCase();
@@ -21,7 +12,7 @@ export default function FinanceView({ signName, onReset }) {
   const [reading, setReading] = useState(staticReading);
 
   useEffect(() => {
-    fetch('/daily-readings.json')
+    fetch(`${import.meta.env.BASE_URL}daily-readings.json`)
       .then(r => r.json())
       .then(data => {
         const r = data?.readings?.[signName];
@@ -31,12 +22,13 @@ export default function FinanceView({ signName, onReset }) {
       .catch(() => {});
   }, [signName]);
 
-  const { sign, market, daily, house2, house8, house11, goodFor, badFor, ...sections } = reading;
+  const { sign, market, daily, house2, house8, house11, spending, saving, investing, debt, income, mindset, goodFor, badFor } = reading;
 
   return (
     <div className="reading-view">
       <button className="back-btn" onClick={onReset}>← All Signs</button>
 
+      {/* Header */}
       <header className="reading-header">
         <p className="reading-date">{formatDate(today)}</p>
         {sign.image
@@ -54,12 +46,14 @@ export default function FinanceView({ signName, onReset }) {
 
       <hr className="divider" />
 
+      {/* Daily */}
       <section className="daily-section">
         <p className="daily-headline">{daily}</p>
       </section>
 
       <hr className="divider" />
 
+      {/* Market */}
       <section className="moon-row">
         <span className="inline-symbol">{market.symbol}</span>
         <div>
@@ -70,28 +64,83 @@ export default function FinanceView({ signName, onReset }) {
 
       <hr className="divider" />
 
-      <section className="houses-block">
-        {[house2, house8, house11].map(house => (
-          <div key={house.label} className="house-row">
-            <p className="row-label">{house.label.toUpperCase()}</p>
-            <p className="row-text">{house.text}</p>
+      {/* ── Spending ── */}
+      <section className="themed-block">
+        <p className="block-eyebrow">Spending</p>
+        <div className="houses-block">
+          <div className="house-row">
+            <p className="row-label">{house2.label.toUpperCase()}</p>
+            <p className="row-text">{house2.text}</p>
           </div>
-        ))}
+        </div>
+        <section className="category-section">
+          <p className="category-symbol">♀</p>
+          <p className="category-label">SPENDING</p>
+          <p className="category-text">{spending}</p>
+        </section>
+        <section className="category-section">
+          <p className="category-symbol">☉</p>
+          <p className="category-label">INCOME & EARNING</p>
+          <p className="category-text">{income}</p>
+        </section>
       </section>
 
       <hr className="divider" />
 
-      {CATEGORIES.map(({ key, label, symbol }) => (
-        <section key={key} className="category-section">
-          <p className="category-symbol">{symbol}</p>
-          <p className="category-label">{label.toUpperCase()}</p>
-          <p className="category-text">{sections[key]}</p>
-          <hr className="divider" />
+      {/* ── Debt ── */}
+      <section className="themed-block">
+        <p className="block-eyebrow">Debt</p>
+        <div className="houses-block">
+          <div className="house-row">
+            <p className="row-label">{house8.label.toUpperCase()}</p>
+            <p className="row-text">{house8.text}</p>
+          </div>
+        </div>
+        <section className="category-section">
+          <p className="category-symbol">♏</p>
+          <p className="category-label">DEBT & OBLIGATION</p>
+          <p className="category-text">{debt}</p>
         </section>
-      ))}
+        <DebtTool />
+      </section>
 
-      <FinancialTools />
+      <hr className="divider" />
 
+      {/* ── Savings & Investing ── */}
+      <section className="themed-block">
+        <p className="block-eyebrow">Savings & Investing</p>
+        <div className="houses-block">
+          <div className="house-row">
+            <p className="row-label">{house11.label.toUpperCase()}</p>
+            <p className="row-text">{house11.text}</p>
+          </div>
+        </div>
+        <section className="category-section">
+          <p className="category-symbol">♄</p>
+          <p className="category-label">SAVING</p>
+          <p className="category-text">{saving}</p>
+        </section>
+        <section className="category-section">
+          <p className="category-symbol">♃</p>
+          <p className="category-label">INVESTING</p>
+          <p className="category-text">{investing}</p>
+        </section>
+        <SavingsTool />
+        <InvestmentTool />
+      </section>
+
+      <hr className="divider" />
+
+      {/* ── Mindset ── */}
+      <section className="category-section">
+        <p className="category-symbol">♆</p>
+        <p className="category-label">MONEY MINDSET</p>
+        <p className="category-text">{mindset}</p>
+      </section>
+
+      <hr className="divider" />
+
+      {/* Good / Bad */}
       <section className="learn-avoid">
         <div className="la-col">
           <p className="la-label">Good day for</p>

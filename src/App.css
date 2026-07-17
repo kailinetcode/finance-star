@@ -367,6 +367,22 @@ body {
   line-height: 2;
 }
 
+/* ── Themed blocks ─────────────────────────────────────────────────────────── */
+
+.themed-block {
+  padding-top: 8px;
+}
+
+.block-eyebrow {
+  font-size: 9px;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: #bbb;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  text-align: center;
+  padding: 24px 32px 0;
+}
+
 /* ── Financial Tools ───────────────────────────────────────────────────────── */
 
 .financial-tools {
